@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+
+<html lang="it">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
+<meta content="#5b2a2a" name="theme-color"/>
+<title>Viterbo e dintorni</title>
+<style>
+    :root{
+      --bg:#f7f1e8;
+      --paper:#fffaf2;
+      --ink:#25211c;
+      --muted:#70675d;
+      --brand:#5b2a2a;
+      --brand2:#8a4b32;
+      --olive:#586f4d;
+      --sand:#e8d4b8;
+      --line:rgba(37,33,28,.14);
+      --shadow:0 18px 45px rgba(49,31,20,.16);
+      --radius:22px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color:var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(138,75,50,.22), transparent 30rem),
+        radial-gradient(circle at 85% 6rem, rgba(88,111,77,.18), transparent 22rem),
+        linear-gradient(180deg,#fff9ef,var(--bg) 45%,#efe3d2);
+      line-height:1.45;
+    }
+    a{color:inherit}
+    .shell{width:min(980px,100%);margin:auto;padding:0 16px 84px}
+    .hero{
+      min-height:96vh;
+      display:grid;
+      align-items:end;
+      padding:28px 0 18px;
+      position:relative;
+    }
+    .topbar{
+      position:fixed;
+      left:0;right:0;top:0;
+      z-index:50;
+      padding:10px 12px;
+      background:rgba(255,250,242,.86);
+      backdrop-filter:blur(16px);
+      border-bottom:1px solid var(--line);
+    }
+    .topbar-inner{
+      width:min(980px,100%);
+      margin:auto;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      overflow:auto;
+      scrollbar-width:none;
+    }
+    .topbar-inner::-webkit-scrollbar{display:none}
+    .brand{
+      flex:0 0 auto;
+      display:flex;align-items:center;gap:8px;
+      font-weight:800;
+      letter-spacing:.02em;
+      color:var(--brand);
+      margin-right:2px;
+    }
+    .crest{
+      width:28px;height:28px;border-radius:9px;
+      background:linear-gradient(135deg,var(--brand),var(--brand2));
+      display:grid;place-items:center;color:#fff;font-size:16px;
+      box-shadow:0 8px 18px rgba(91,42,42,.24);
+    }
+    .navpill{
+      white-space:nowrap;
+      text-decoration:none;
+      font-size:13px;
+      padding:8px 11px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      background:#fffaf4;
+      color:#4b4138;
+    }
+    .hero-card{
+      margin-top:64px;
+      background:linear-gradient(145deg,rgba(255,250,242,.94),rgba(247,241,232,.82));
+      border:1px solid rgba(91,42,42,.13);
+      border-radius:34px;
+      overflow:hidden;
+      box-shadow:var(--shadow);
+      position:relative;
+    }
+    .hero-art{
+      min-height:230px;
+      background:
+        linear-gradient(180deg,rgba(91,42,42,.08),rgba(91,42,42,.38)),
+        linear-gradient(135deg,#5b2a2a,#8a4b32 45%,#586f4d);
+      position:relative;
+      overflow:hidden;
+    }
+    .skyline{position:absolute;inset:auto 0 0;height:190px;opacity:.95}
+    .hero-text{padding:24px 20px 22px}
+    .eyebrow{margin:0 0 10px;color:var(--olive);font-weight:800;text-transform:uppercase;letter-spacing:.12em;font-size:12px}
+    h1{font-family:Georgia, "Times New Roman", serif;font-size:clamp(42px,12vw,76px);line-height:.88;margin:0 0 16px;color:var(--brand);letter-spacing:-.055em}
+    .subtitle{font-size:18px;color:#3c332c;margin:0 0 18px;max-width:680px}
+    .meta{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 0}
+    .chip{border-radius:999px;padding:9px 12px;background:#fff;border:1px solid var(--line);font-size:13px;color:#4e453d;font-weight:650}
+    .cta-row{display:grid;grid-template-columns:1fr;gap:10px;margin-top:20px}
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:8px;
+      text-decoration:none;border-radius:17px;padding:13px 14px;font-weight:800;border:1px solid transparent;
+      min-height:48px;
+    }
+    .btn.primary{background:var(--brand);color:#fff;box-shadow:0 10px 22px rgba(91,42,42,.22)}
+    .btn.secondary{background:#fff;color:var(--brand);border-color:var(--line)}
+    section{scroll-margin-top:74px;margin:34px 0}
+    .section-title{display:flex;align-items:end;justify-content:space-between;gap:12px;margin:0 0 14px}
+    h2{font-family:Georgia,"Times New Roman",serif;font-size:34px;line-height:1;margin:0;color:var(--brand);letter-spacing:-.035em}
+    .section-note{margin:8px 0 18px;color:var(--muted);font-size:15px}
+    .panel{background:rgba(255,250,242,.86);border:1px solid var(--line);border-radius:var(--radius);padding:16px;box-shadow:0 10px 28px rgba(49,31,20,.08)}
+    .filters{display:flex;gap:8px;overflow:auto;padding:3px 0 9px;margin:0 -2px 12px;scrollbar-width:none}
+    .filters::-webkit-scrollbar{display:none}
+    .filter{border:1px solid var(--line);background:#fffaf4;border-radius:999px;padding:10px 13px;white-space:nowrap;font-weight:750;color:#51473f;cursor:pointer}
+    .filter.active{background:var(--brand);color:#fff;border-color:var(--brand)}
+    .cards{display:grid;gap:13px}
+    .card{background:#fffaf4;border:1px solid var(--line);border-radius:22px;padding:15px;box-shadow:0 10px 22px rgba(49,31,20,.07)}
+    .card[hidden]{display:none}
+    .card-top{display:flex;align-items:flex-start;gap:12px}
+    .icon{flex:0 0 45px;width:45px;height:45px;border-radius:16px;background:linear-gradient(135deg,rgba(138,75,50,.17),rgba(88,111,77,.15));display:grid;place-items:center;font-size:24px}
+    .card h3{font-size:19px;line-height:1.1;margin:1px 0 6px;color:#2f2822}
+    .tags{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 9px}
+    .tag{font-size:12px;padding:5px 8px;border-radius:999px;background:#f1e5d6;color:#5b4d43;font-weight:750}
+    .tag.good{background:#e3eadb;color:#43563a}.tag.hot{background:#f2ddd4;color:#6e3628}
+    .card p{margin:0 0 12px;color:#51483f;font-size:15px}
+    .links{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    .mini{display:flex;align-items:center;justify-content:center;gap:6px;text-decoration:none;border-radius:13px;padding:10px 8px;background:#fff;border:1px solid var(--line);font-size:13px;font-weight:800;color:#4a3e35}
+    .mini.official{background:#f8efe4;color:var(--brand)}
+    .routes{display:grid;gap:12px}
+    .route{display:grid;gap:9px;background:#fffaf4;border:1px solid var(--line);border-radius:22px;padding:15px}
+    .route h3{margin:0;color:var(--brand);font-size:19px}
+    .route ol{margin:0;padding-left:22px;color:#413931}.route li{margin:5px 0}.route p{margin:0;color:var(--muted)}
+    .mapbox{background:linear-gradient(145deg,#fffaf4,#f0e1cd);border:1px solid var(--line);border-radius:28px;padding:17px;overflow:hidden;position:relative}
+    .mapgrid{display:grid;grid-template-columns:1fr;gap:11px;margin-top:12px}
+    .mapitem{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.68);border:1px solid var(--line);border-radius:18px;padding:12px;text-decoration:none}
+    .num{width:30px;height:30px;border-radius:11px;background:var(--brand);color:#fff;display:grid;place-items:center;font-weight:900;flex:0 0 auto}
+    .mapitem strong{display:block}.mapitem span{display:block;color:var(--muted);font-size:13px;margin-top:1px}
+    .tips{display:grid;gap:11px}.tip{display:flex;gap:11px;background:#fffaf4;border:1px solid var(--line);border-radius:18px;padding:12px}.tip b{color:var(--brand)}
+    .footer{margin:34px 0 0;padding:22px 0 8px;color:#6c5e54;font-size:13px;border-top:1px solid var(--line)}
+    .sources{font-size:12px;color:#7a6d63}.sources a{color:#5b2a2a}
+    .backtop{position:fixed;right:14px;bottom:14px;z-index:60;width:50px;height:50px;border-radius:18px;background:var(--brand);color:#fff;display:grid;place-items:center;text-decoration:none;font-size:20px;box-shadow:0 12px 30px rgba(91,42,42,.26)}
+
+    .hero-art img{width:100%;height:100%;min-height:230px;object-fit:cover;display:block}
+    .hero-art::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(91,42,42,.02),rgba(91,42,42,.18));pointer-events:none}
+    .card{overflow:hidden;padding:0}
+    .card-photo{margin:0;height:160px;background:#eadcc9;overflow:hidden}
+    .card-photo img{width:100%;height:100%;object-fit:cover;display:block}
+    .card-top,.card p,.card .links{margin-left:15px;margin-right:15px}
+    .card-top{margin-top:15px}
+    .card .links{margin-bottom:15px}
+    .map-placeholder{margin-top:12px;border:1px dashed rgba(91,42,42,.35);border-radius:18px;padding:22px;background:rgba(255,255,255,.55);color:var(--muted);font-weight:750;text-align:center}
+    @media (min-width:680px){
+      .hero-card{display:grid;grid-template-columns:.95fr 1.05fr}.hero-art{min-height:100%}.hero-art img{min-height:100%}.hero-text{padding:38px 34px}.cta-row{grid-template-columns:1fr 1fr}.cards{grid-template-columns:1fr 1fr}.routes{grid-template-columns:1fr 1fr}.mapgrid{grid-template-columns:1fr 1fr}.panel{padding:20px}.links{grid-template-columns:auto auto;justify-content:start}.hero{min-height:720px}
+    }
+    @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  
+.card img.place-img,.hero-photo{
+width:100%;
+height:180px;
+object-fit:cover;
+border-radius:16px;
+margin-bottom:12px;
+display:block;
+}
+.hero-photo{height:100%;}
+
+.place-img,.hero-photo{
+  background:linear-gradient(135deg,var(--brand2),var(--olive));
+}
+.card img.place-img{width:100%;height:180px;object-fit:cover;border-radius:16px;margin-bottom:12px;display:block;}
+.hero-photo{width:100%;height:100%;object-fit:cover;display:block;}
+
+/* Immagini locali fornite dall'utente */
+.hero-art img.hero-photo{width:100%;height:100%;min-height:230px;object-fit:cover;display:block;}
+.card img.place-img{width:100%;height:190px;object-fit:cover;border-radius:16px;margin-bottom:12px;display:block;background:#eadbc8;}
+@media (min-width:680px){.card img.place-img{height:210px;}.hero-art img.hero-photo{min-height:100%;}}
+</style>
+</head>
+<body>
+<nav aria-label="Navigazione principale" class="topbar">
+<div class="topbar-inner">
+<a aria-label="Torna all'inizio" class="brand" href="#home"><span class="crest">VT</span><span>Viterbo</span></a>
+<a class="navpill" href="#attrazioni">Attrazioni</a>
+<a class="navpill" href="#dintorni">Dintorni</a>
+<a class="navpill" href="#mappa">Mappa</a>
+<a class="navpill" href="#info">Info</a>
+</div>
+</nav>
+<main class="shell" id="home">
+<header class="hero">
+<div class="hero-card">
+<div aria-hidden="true" class="hero-art"><img alt="Palazzo dei Papi a Viterbo" class="hero-photo" decoding="async" loading="eager" src="img/palazzo_papi.jpg"/></div>
+<div class="hero-text">
+<h1>Viterbo e dintorni</h1>
+<div class="cta-row"><a class="btn primary" href="#attrazioni">Vedi le attrazioni</a></div>
+</div>
+</div>
+</header>
+<section id="attrazioni">
+<div class="section-title"><h2>Da vedere a Viterbo</h2></div>
+<div aria-label="Filtri attrazioni" class="filters" role="group">
+<button class="filter active" data-filter="all">Tutto</button>
+<button class="filter" data-filter="walk">A piedi</button>
+<button class="filter" data-filter="short">Entro 1 ora</button>
+<button class="filter" data-filter="half">Mezza giornata</button>
+<button class="filter" data-filter="evening">Sera/relax</button>
+</div>
+<div class="cards">
+<article class="card" data-tags="walk short"><img alt="Palazzo dei Papi e Colle del Duomo" class="place-img" decoding="async" loading="lazy" src="img/palazzo_papi_colle_duomo.jpg"/>
+<div class="card-top"><div class="icon">🏰</div><div><h3>Palazzo dei Papi e Colle del Duomo</h3><div class="tags"><span class="tag hot">simbolo della città</span><span class="tag">60–90 min</span></div></div></div>
+<p>Il complesso monumentale più rappresentativo di Viterbo: Palazzo dei Papi, Cattedrale di San Lorenzo, Museo Colle del Duomo e scorci sulla valle di Faul.</p>
+<div class="links"><a class="mini official" href="https://comune.viterbo.it/vivere-il-comune/luoghi/palazzo-dei-papi/" rel="noopener" target="_blank">Fonte ufficiale</a><a class="mini" href="https://www.google.com/maps/search/?api=1&amp;query=Palazzo%20dei%20Papi%20Viterbo" rel="noopener" target="_blank">Apri Maps</a></div>
+</article>
+<article class="card" data-tags="walk short"><img alt="Quartiere San Pellegrino" class="place-img" decoding="async" loading="lazy" src="img/san_pellegrino.jpg"/>
+<div class="card-top"><div class="icon">🏘️</div><div><h3>Quartiere San Pellegrino</h3><div class="tags"><span class="tag hot">medioevo urbano</span><span class="tag">45–60 min</span></div></div></div>
+<p>Vicoli, case a ponte, profferli e piazze raccolte: è il cuore medievale della città, molto adatto a una passeggiata fotografica.</p>
+<div class="links"><a class="mini official" href="https://comune.viterbo.it/vivere-il-comune/luoghi/san-pellegrino/" rel="noopener" target="_blank">Fonte ufficiale</a><a class="mini" href="https://www.google.com/maps/search/?api=1&amp;query=Quartiere%20San%20Pellegrino%20Viterbo" rel="noopener" target="_blank">Apri Maps</a></div>
+</article>
+<article class="card" data-tags="walk short"><img alt="Piazza del Plebiscito e Palazzo dei Priori" class="place-img" decoding="async" loading="lazy" src="img/piazza_plebiscito.jpg"/>
+<div class="card-top"><div class="icon">⛲</div><div><h3>Piazza del Plebiscito e Palazzo dei Priori</h3><div class="tags"><span class="tag">30–45 min</span><span class="tag good">passeggiata facile</span></div></div></div>
+<p>Il cuore civico di Viterbo, con Palazzo dei Priori e Palazzo del Podestà. Un buon punto di partenza per ogni itinerario nel centro storico.</p>
+<div class="links"><a class="mini official" href="https://comune.viterbo.it/vivere-il-comune/luoghi/piazza-del-plebiscito/" rel="noopener" target="_blank">Fonte ufficiale</a><a class="mini" href="https://www.google.com/maps/search/?api=1&amp;query=Piazza%20del%20Plebiscito%20Viterbo" rel="noopener" target="_blank">Apri Maps</a></div>
+</article>
+<article class="card" data-tags="walk half"><img alt="Musei cittadini e Viterbo Pass" class="place-img" decoding="async" loading="lazy" src="img/musei_cittadini_viterbo_pass.jpg"/>
+<div class="card-top"><div class="icon">🎟️</div><div><h3>Musei cittadini e Viterbo Pass</h3><div class="tags"><span class="tag">2–3 ore</span><span class="tag good">utile se piove</span></div></div></div>
+<p>Per chi vuole entrare nei musei o costruire una visita più completa ai monumenti cittadini. Verificare orari e disponibilità prima della visita.</p>
+<div class="links"><a class="mini official" href="https://www.viterbopass.it/" rel="noopener" target="_blank">Fonte ufficiale</a><a class="mini" href="https://www.google.com/maps/search/?api=1&amp;query=musei%20Viterbo%20centro" rel="noopener" target="_blank">Apri Maps</a></div>
+</article>
+<article class="card" data-tags="half evening"><img alt="Terme dei Papi e area del Bullicame" class="place-img" decoding="async" loading="lazy" src="img/terme_papi.jpg"/>
+<div class="card-top"><div class="icon">♨️</div><div><h3>Terme dei Papi e area del Bullicame</h3><div class="tags"><span class="tag hot">relax</span><span class="tag">2–4 ore</span></div></div></div>
+<p>Esperienza termale distintiva di Viterbo, adatta soprattutto a chi resta dopo il workshop o vuole dedicare qualche ora al benessere.</p>
+<div class="links"><a class="mini official" href="https://termedeipapi.it/" rel="noopener" target="_blank">Fonte ufficiale</a><a class="mini" href="https://www.google.com/maps/search/?api=1&amp;query=Terme%20dei%20Papi%20Viterbo" rel="noopener" target="_blank">Apri Maps</a></div>
+</article>
+<article class="card" data-tags="half walk"><img alt="Orto Botanico “Angelo Rambelli”" class="place-img" decoding="async" loading="lazy" src="img/orto_botanico.jpg"/>
+<div class="card-top"><div class="icon">🌿</div><div><h3>Orto Botanico “Angelo Rambelli”</h3><div class="tags"><span class="tag good">Unitus</span><span class="tag">1–2 ore</span></div></div></div>
+<p>Struttura dell’Università della Tuscia dedicata a didattica, ricerca, conservazione e divulgazione: coerente con un pubblico universitario e scientifico.</p>
+<div class="links"><a class="mini official" href="https://ortobotanico.unitus.it/" rel="noopener" target="_blank">Fonte ufficiale</a><a class="mini" href="https://www.google.com/maps/search/?api=1&amp;query=Orto%20Botanico%20Angelo%20Rambelli%20Viterbo" rel="noopener" target="_blank">Apri Maps</a></div>
+</article><article class="card" data-tags="walk short"><img alt="Rettorato Unitus a Santa Maria in Gradi" class="place-img" decoding="async" loading="lazy" src="img/rettorato_unitus.jpg"/><div class="card-top"><div class="icon">🎓</div><div><h3>Rettorato Unitus · Santa Maria in Gradi</h3><div class="tags"><span class="tag good">Unitus</span><span class="tag">30–45 min</span></div></div></div><p>Sede istituzionale dell’Università degli Studi della Tuscia, in un complesso storico vicino al centro cittadino.</p><div class="links"><a class="mini official" href="https://www.unitus.it/" rel="noopener" target="_blank">Unitus</a><a class="mini" href="https://www.google.com/maps/search/?api=1&amp;query=Rettorato%20Università%20della%20Tuscia%20Viterbo" rel="noopener" target="_blank">Apri Maps</a></div></article><article class="card" data-tags="walk short"><img alt="Chiese e chiostri di Viterbo" class="place-img" decoding="async" loading="lazy" src="img/chiese_viterbo.jpg"/><div class="card-top"><div class="icon">⛪</div><div><h3>Chiese e chiostri di Viterbo</h3><div class="tags"><span class="tag hot">centro storico</span><span class="tag">30–90 min</span><span class="tag good">passeggiata</span></div></div></div><p>Un percorso libero tra chiese, chiostri e scorci del centro: Santa Maria Nuova, San Sisto, Santa Rosa e altri luoghi storici permettono di leggere la città oltre i monumenti principali.</p><div class="links"><a class="mini official" href="https://comune.viterbo.it/vivere-il-comune/luoghi/" rel="noopener" target="_blank">Luoghi Comune</a><a class="mini" href="https://www.google.com/maps/search/?api=1&amp;query=chiese%20Viterbo%20centro%20storico" rel="noopener" target="_blank">Apri Maps</a></div></article>
+</div>
+</section>
+<section id="dintorni">
+<div class="section-title"><h2>Dintorni della Tuscia</h2></div>
+<p class="section-note">Mete consigliate per chi dispone di mezza giornata, una giornata libera o un accompagnatore con auto.</p>
+<div class="cards">
+<article class="card" data-tags="half"><img alt="Villa Lante · Bagnaia" class="place-img" decoding="async" loading="lazy" src="img/villa_lante.jpg"/>
+<div class="card-top"><div class="icon">🌳</div><div><h3>Villa Lante · Bagnaia</h3><div class="tags"><span class="tag hot">giardino rinascimentale</span><span class="tag">15–20 min</span></div></div></div>
+<p>Una delle visite più eleganti vicino a Viterbo: giardini, fontane, geometrie verdi e architettura del paesaggio.</p>
+<div class="links"><a class="mini official" href="https://cultura.gov.it/luogo/villa-lante" rel="noopener" target="_blank">Fonte ufficiale</a><a class="mini" href="https://www.google.com/maps/search/?api=1&amp;query=Villa%20Lante%20Bagnaia" rel="noopener" target="_blank">Apri Maps</a></div>
+</article>
+<article class="card" data-tags="half"><img alt="Sacro Bosco · Bomarzo" class="place-img" decoding="async" loading="lazy" src="img/sacro_bosco.jpg"/>
+<div class="card-top"><div class="icon">🗿</div><div><h3>Sacro Bosco · Bomarzo</h3><div class="tags"><span class="tag hot">parco dei mostri</span><span class="tag">25–35 min</span></div></div></div>
+<p>Un parco monumentale unico, con grandi sculture in peperino immerse nel bosco. Ottimo per una visita informale e memorabile.</p>
+<div class="links"><a class="mini official" href="https://www.sacrobosco.eu/" rel="noopener" target="_blank">Fonte ufficiale</a><a class="mini" href="https://www.google.com/maps/search/?api=1&amp;query=Sacro%20Bosco%20Bomarzo" rel="noopener" target="_blank">Apri Maps</a></div>
+</article><article class="card" data-tags="half day">
+<img alt="Faleri Novi" class="place-img" decoding="async" loading="lazy" src="img/faleri_novi.jpg"/>
+<div class="card-top"><div class="icon">🏛️</div><div><h3>Faleri Novi</h3><div class="tags"><span class="tag good">archeologia</span><span class="tag">35–45 min</span></div></div></div>
+<p>Area archeologica romana nei pressi di Civita Castellana, con mura antiche, porte monumentali e resti urbani immersi nel paesaggio della Tuscia.</p>
+<div class="links"><a class="mini official" href="https://www.google.com/maps/search/?api=1&amp;query=Faleri%20Novi" rel="noopener" target="_blank">Apri Maps</a><a class="mini" href="https://www.google.com/maps/search/?api=1&amp;query=Abbazia%20di%20Santa%20Maria%20di%20Falleri" rel="noopener" target="_blank">Santa Maria di Falleri</a></div>
+</article>
+<article class="card" data-tags="day"><img alt="Civita di Bagnoregio" class="place-img" decoding="async" loading="lazy" src="img/civita_bagnoregio.jpg"/>
+<div class="card-top"><div class="icon">🌉</div><div><h3>Civita di Bagnoregio</h3><div class="tags"><span class="tag hot">borgo iconico</span><span class="tag">40–50 min</span></div></div></div>
+<p>Borgo sospeso nella valle dei calanchi, raggiungibile a piedi tramite il ponte di accesso. Da programmare con tempi più larghi.</p>
+<div class="links"><a class="mini official" href="https://civitadibagnoregio.cloud/" rel="noopener" target="_blank">Fonte ufficiale</a><a class="mini" href="https://www.google.com/maps/search/?api=1&amp;query=Civita%20di%20Bagnoregio" rel="noopener" target="_blank">Apri Maps</a></div>
+</article>
+<article class="card" data-tags="half day"><img alt="Palazzo Farnese · Caprarola" class="place-img" decoding="async" loading="lazy" src="img/palazzo_farnese.jpg"/>
+<div class="card-top"><div class="icon">🏛️</div><div><h3>Palazzo Farnese · Caprarola</h3><div class="tags"><span class="tag">30–40 min</span><span class="tag good">arte e architettura</span></div></div></div>
+<p>Grande residenza rinascimentale legata alla famiglia Farnese, tra architettura, affreschi e rapporto scenografico con il borgo.</p>
+<div class="links"><a class="mini official" href="https://cultura.gov.it/luogo/palazzo-farnese" rel="noopener" target="_blank">Fonte ufficiale</a><a class="mini" href="https://www.google.com/maps/search/?api=1&amp;query=Palazzo%20Farnese%20Caprarola" rel="noopener" target="_blank">Apri Maps</a></div>
+</article>
+<article class="card" data-tags="day"><img alt="Lago di Bolsena e Montefiascone" class="place-img" decoding="async" loading="lazy" src="img/lago_bolsena.jpg"/>
+<div class="card-top"><div class="icon">🌊</div><div><h3>Lago di Bolsena e Montefiascone</h3><div class="tags"><span class="tag good">paesaggio</span><span class="tag">35–50 min</span></div></div></div>
+<p>Opzione più paesaggistica: lago vulcanico, borghi, passeggiate e punti panoramici. Consigliata con auto e tempo stabile.</p>
+<div class="links"><a class="mini official" href="https://www.visitlazio.com/" rel="noopener" target="_blank">VisitLazio</a><a class="mini" href="https://www.google.com/maps/search/?api=1&amp;query=Lago%20di%20Bolsena%20Montefiascone" rel="noopener" target="_blank">Apri Maps</a></div>
+</article>
+<article class="card" data-tags="day"><img alt="Tuscania e Tarquinia etrusca" class="place-img" decoding="async" loading="lazy" src="img/tuscania.jpg"/>
+<div class="card-top"><div class="icon">🏺</div><div><h3>Tuscania e Tarquinia etrusca</h3><div class="tags"><span class="tag">30–60 min</span><span class="tag good">archeologia</span></div></div></div>
+<p>Per chi è interessato a paesaggio, archeologia e medioevo: Tuscania è più vicina; Tarquinia richiede più tempo ma offre la necropoli etrusca.</p>
+<div class="links"><a class="mini official" href="https://www.tuscaniaturismo.it/" rel="noopener" target="_blank">Tuscania</a><a class="mini" href="https://www.google.com/maps/search/?api=1&amp;query=Tarquinia%20necropoli%20etrusca" rel="noopener" target="_blank">Apri Maps</a></div>
+</article>
+</div>
+</section>
+<section id="mappa">
+<div class="mapbox"><h2>Mappa</h2><p class="section-note">Spazio riservato alla mappa Google personalizzata. Inserire qui il link quando disponibile.</p><div class="map-placeholder">Link mappa Google da inserire</div></div>
+</section>
+<section id="info">
+<div class="section-title"><h2>Indicazioni pratiche</h2></div>
+</section>
+<footer class="footer"><p><strong>Viterbo e dintorni</strong> · Guida mobile per visitare Viterbo e la Tuscia.</p></footer>
+</main>
+<a aria-label="Torna all'inizio" class="backtop" href="#home">↑</a>
+<script>
+    const filters = document.querySelectorAll('.filter');
+    const cards = document.querySelectorAll('.card');
+    filters.forEach(button => {
+      button.addEventListener('click', () => {
+        filters.forEach(b => b.classList.remove('active'));
+        button.classList.add('active');
+        const filter = button.dataset.filter;
+        cards.forEach(card => {
+          const tags = card.dataset.tags || '';
+          card.hidden = !(filter === 'all' || tags.includes(filter));
+        });
+      });
+    });
+  </script>
+</body>
+</html>
